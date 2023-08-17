@@ -1,5 +1,6 @@
 #include "RTC.h"
 #include "configuration.h"
+#include "stm32_def.h"
 #include "stm32l0xx_hal.h"
 #include <stm32l073xx.h>
 

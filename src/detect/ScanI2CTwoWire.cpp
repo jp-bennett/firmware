@@ -3,7 +3,7 @@
 #include "concurrency/LockGuard.h"
 #include "configuration.h"
 
-#if !defined(ARCH_PORTDUINO) && !defined(ARCH_STM32WL)
+#if !defined(ARCH_PORTDUINO) && !defined(ARCH_STM32WL) && !defined(ARCH_STM32L0)
 #include "main.h" // atecc
 #endif
 
@@ -73,7 +73,7 @@ ScanI2C::DeviceType ScanI2CTwoWire::probeOLED(ScanI2C::DeviceAddress addr) const
 }
 void ScanI2CTwoWire::printATECCInfo() const
 {
-#if !defined(ARCH_PORTDUINO) && !defined(ARCH_STM32WL)
+#if !defined(ARCH_PORTDUINO) && !defined(ARCH_STM32WL) && !defined(ARCH_STM32L0)
     atecc.readConfigZone(false);
 
     LOG_DEBUG("ATECC608B Serial Number: ");
@@ -172,7 +172,7 @@ void ScanI2CTwoWire::scanPort(I2CPort port)
                 type = probeOLED(addr);
                 break;
 
-#if !defined(ARCH_PORTDUINO) && !defined(ARCH_STM32WL)
+#if !defined(ARCH_PORTDUINO) && !defined(ARCH_STM32WL) && !defined(ARCH_STM32L0)
             case ATECC608B_ADDR:
                 type = ATECC608B;
                 if (atecc.begin(addr.address) == true) {

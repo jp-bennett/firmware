@@ -1,3 +1,4 @@
+#ifdef USE_MODULES
 #include "configuration.h"
 #include "input/InputBroker.h"
 #include "input/RotaryEncoderInterruptImpl1.h"
@@ -108,3 +109,4 @@ void setupModules()
     // acks
     routingModule = new RoutingModule();
 }
+#endif

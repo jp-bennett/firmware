@@ -16,8 +16,8 @@
 #include "buzz/buzz.h"
 #include "configuration.h"
 #include "main.h"
+#include "meshUtils.h"
 #include "sleep.h"
-#include "utils.h"
 
 #ifdef DEBUG_HEAP_MQTT
 #include "mqtt/MQTT.h"
@@ -146,7 +146,7 @@ class AnalogBatteryLevel : public HasBatteryLevel
     virtual uint16_t getBattVoltage() override
     {
 
-#if defined(HAS_TELEMETRY) && !defined(ARCH_PORTDUINO) && !defined(HAS_PMU)
+#if defined(HAS_TELEMETRY) && !defined(ARCH_PORTDUINO) && !defined(HAS_PMU) && !defined(ARCH_STM32L0)
         if (hasINA()) {
             LOG_DEBUG("Using INA on I2C addr 0x%x for device battery voltage\n", config.power.device_battery_ina_address);
             return getINAVoltage();
@@ -272,7 +272,7 @@ class AnalogBatteryLevel : public HasBatteryLevel
     float last_read_value = 0.0;
     uint32_t last_read_time_ms = 0;
 
-#if defined(HAS_TELEMETRY) && !defined(ARCH_PORTDUINO)
+#if defined(HAS_TELEMETRY) && !defined(ARCH_PORTDUINO) && !defined(ARCH_STM32L0)
     uint16_t getINAVoltage()
     {
         if (nodeTelemetrySensorsMap[meshtastic_TelemetrySensorType_INA219] == config.power.device_battery_ina_address) {
